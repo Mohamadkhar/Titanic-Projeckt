@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  jupyter:
+    build: .
+    container_name: titanic-project
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workspace
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    working_dir: /workspace/notebooks
+    restart: unless-stopped

@@ -1,0 +1,17 @@
+name: ds
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - seaborn==0.13.2
+    - matplotlib==3.9.2
+    - scikit-learn==1.5.2
+    - numpy==2.1.2
+    - pandas==2.2.3
+    - scipy==1.14.0
+    - ipympl==0.9.4
+    - notebook==6.5.7
+    - requests==2.32.3

@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data files (kommentiere aus, wenn Daten nicht getrackt werden sollen)
+# data/raw/*.csv
+# data/raw/*.xlsx
+# data/processed/*.csv
+# data/processed/*.pkl
+
+# Aber behalte die Verzeichnisse
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Model files (uncomment if models are too large)
+# *.pkl
+# *.h5
+# *.pth
+# models/
