@@ -2,17 +2,63 @@
 
 Dieses Repository enthält eine vollständige Datenanalyse des Titanic-Datasets für das Data Science Labor.
 
-##  Projektübersicht
+##  Datensatz
 
-Das Projekt analysiert das berühmte Titanic-Dataset und untersucht folgende Forschungsfragen:
-- [Hier deine Forschungsfragen einfügen]
-- [Forschungsfrage 2]
-- [Forschungsfrage 3]
+Für das Abschlussprojekt wird der öffentlich zugängliche Kaggle-Datensatz **"Titanic: Machine Learning from Disaster"** verwendet [[1]](#literatur).
 
-**Hypothesen:**
-- [Hypothese 1]
-- [Hypothese 2]
-- [Hypothese 3]
+### Quelle und Zugriff
+Der Datensatz ist über Kaggle verfügbar und liegt als tabellarische CSV-Dateien (`train.csv`, `test.csv`) vor. Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
+
+- **Kaggle Competition**: https://www.kaggle.com/competitions/titanic/data
+- **Seaborn Dataset**: https://github.com/mwaskom/seaborn-data/blob/master/titanic.csv
+
+### Kurzbeschreibung
+Der Datensatz enthält Informationen zu Passagieren der Titanic sowie den jeweiligen Überlebensstatus als Zielvariable. Die Daten eignen sich für explorative Datenanalyse, statistische Hypothesentests sowie für überwachte Machine-Learning-Modelle zur Vorhersage des Überlebens [[1, 2]](#literatur).
+
+### Beispielhafte Merkmale (Features)
+
+| Feature | Beschreibung |
+|---------|--------------|
+| **Survived** | Zielvariable (0 = nicht überlebt, 1 = überlebt) |
+| **Pclass** | Ticket-Klasse (1, 2, 3) |
+| **Sex** | Geschlecht (male, female) |
+| **Age** | Alter in Jahren |
+| **SibSp** | Anzahl Geschwister/Ehepartner an Bord |
+| **Parch** | Anzahl Eltern/Kinder an Bord |
+| **Fare** | Ticketpreis |
+| **Embarked** | Einschiffungshafen (C = Cherbourg, Q = Queenstown, S = Southampton) |
+
+##  Forschungsfragen (Research Questions)
+
+1. **RQ1**: Welche demografischen Merkmale (z. B. Geschlecht, Alter, Klasse) stehen in Zusammenhang mit der Überlebenswahrscheinlichkeit der Passagiere?
+
+2. **RQ2**: Wie stark erklären sozioökonomische Eigenschaften (z. B. Ticketklasse, Fahrpreis) das Überleben im Vergleich zu demografischen Merkmalen?
+
+3. **RQ3**: Können überwachte Machine-Learning-Modelle basierend auf den Passagiermerkmalen die Überlebenswahrscheinlichkeit zuverlässig vorhersagen?
+
+##  Hypothesen (empirisch prüfbar)
+
+Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Datensatz und sind empirisch überprüfbar:
+
+- **H1**: Weibliche Passagiere hatten eine höhere Überlebenswahrscheinlichkeit als männliche Passagiere.
+
+- **H2**: Passagiere der 1. Klasse hatten eine höhere Überlebenswahrscheinlichkeit als Passagiere der 3. Klasse.
+
+- **H3**: Jüngere Passagiere hatten eine höhere Überlebenswahrscheinlichkeit als ältere Passagiere.
+
+### Geplante methodische Überprüfung
+
+- **H1**: Chi-Quadrat-Test zur Prüfung der Unabhängigkeit zwischen `Sex` und `Survived`, ergänzt durch logistische Regression.
+
+- **H2**: Vergleich der Überlebensraten nach `Pclass` (Chi-Quadrat-Test) sowie Analyse von `Fare`; zusätzlich Einsatz eines Random-Forest-Modells zur Bewertung der Feature-Wichtigkeit.
+
+- **H3**: Vergleich von Altersgruppen mittels t-Test oder ANOVA (bzw. nichtparametrischer Alternativen) sowie Regressionsanalyse.
+
+### Warum diese Hypothesen geeignet sind
+
+ Sie sind empirisch überprüfbar mittels statistischer Tests und Machine-Learning-Methoden  
+ Sie beziehen sich direkt auf vorhandene Merkmale des Datensatzes  
+ Sie sind hypothesengetrieben und erfüllen die Anforderungen der Projektvorlage
 
 ##  Projektstruktur
 
@@ -135,15 +181,15 @@ Da das Projekt in einem Docker-Container läuft, kannst du nahtlos zwischen Ger�
 
 Alle Änderungen werden automatisch synchronisiert (Volume-Mount).
 
-##  Projektanforderungen
+## Projektanforderungen
 
 Das finale Projekt erfüllt folgende Kriterien:
 
--  Als Git-Repository eingereicht
+-  Als Git-Repository eingereicht → https://github.com/Mohamadkhar/Titanic-Projeckt
 -  In sich geschlossen (alle Skripte und Daten-Download enthalten)
 -  README mit Projektbeschreibung und Ausführungsanleitung
--  Definierte Forschungsfragen und Hypothesen
--  Vollständige Datenanalyse mit Visualisierungen
+-  Definierte Forschungsfragen (RQ1-RQ3) und Hypothesen (H1-H3)
+-  Vollständige Datenanalyse mit Visualisierungen (in Arbeit)
 
 ##  Troubleshooting
 
@@ -189,6 +235,12 @@ Dann zu `environment.yml` oder `requirements.txt` hinzufügen.
 3. **Hilfsfunktionen**: Wiederverwendbaren Code in `src/` auslagern
 4. **Dokumentation**: Erkenntnisse in README und Notebooks dokumentieren
 5. **Git**: Regelmäßig committen und pushen
+
+##  Literatur
+
+[1] Kaggle. *Titanic: Machine Learning from Disaster*. https://www.kaggle.com/competitions/titanic/data, Zugriff: Februar 2026.
+
+[2] Mukund Sharma. *Working with Titanic Dataset using Keras: Solving a Simple Classification Problem*. Medium, 2018. https://medium.com/@mukundsharma1995/working-with-titanic-dataset-using-keras-solving-a-simple-classification-problem-440e3860e8fd, Zugriff: Februar 2026.
 
 ##  Kontakt
 
