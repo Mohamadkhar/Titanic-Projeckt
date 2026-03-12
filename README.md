@@ -192,9 +192,9 @@ Dann zu `environment.yml` oder `requirements.txt` hinzufügen.
 
 ##  Kontakt
 
-Bei Fragen zum Projekt: [Deine Kontaktinformationen]
+Bei Fragen zum Projekt: Mohamad Kharboutli
 
 ---
 
-**Tipp**: Jupyter-Notebooks sollten regelmäßig gespeichert werden. Der Docker-Container mountet das Verzeichnis, sodass alle Änderungen persistent sind.
+
 
