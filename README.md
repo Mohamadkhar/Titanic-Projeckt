@@ -76,8 +76,7 @@ titanic-project/
 │   └── README.md           # Notebook-Dokumentation
 ├── src/                    # Python-Quelldateien
 │   ├── __init__.py        # Package Initialisierung
-│   ├── utils.py           # Hilfsfunktionen
-│   └── download_data.py   # Daten-Download-Skript
+│   └── utils.py           # Hilfsfunktionen
 ├── Files/                  # Lab-Notebooks und PDFs (Referenz)
 │   ├── 02-jupyter.ipynb bis 17-pytorch.ipynb
 │   └── PDF-Dokumentationen
@@ -123,6 +122,10 @@ Jupyter startet automatisch im `notebooks/` Verzeichnis.
 ```bash
 docker-compose down
 ```
+
+### 5. Datensatz verwenden
+
+Die Datendateien liegen bereits im Projekt unter `data/raw/` und koennen direkt in den Notebooks verwendet werden.
 
 ##  Entwicklungsumgebung
 
@@ -186,7 +189,7 @@ Alle Änderungen werden automatisch synchronisiert (Volume-Mount).
 Das finale Projekt erfüllt folgende Kriterien:
 
 -  Als Git-Repository eingereicht → https://github.com/Mohamadkhar/Titanic-Projeckt
--  In sich geschlossen (alle Skripte und Daten-Download enthalten)
+-  In sich geschlossen (alle benoetigten Dateien und Ausfuehrungsschritte enthalten)
 -  README mit Projektbeschreibung und Ausführungsanleitung
 -  Definierte Forschungsfragen (RQ1-RQ3) und Hypothesen (H1-H3)
 -  Vollständige Datenanalyse mit Visualisierungen (in Arbeit)
@@ -230,7 +233,7 @@ Dann zu `environment.yml` oder `requirements.txt` hinzufügen.
 
 ##  Workflow
 
-1. **Daten vorbereiten**: Dataset in `data/raw/` ablegen oder Download-Skript ausführen
+1. **Daten vorbereiten**: Dataset in `data/raw/` ablegen (falls noch nicht vorhanden)
 2. **Exploration**: Notebooks in `notebooks/` erstellen und analysieren
 3. **Hilfsfunktionen**: Wiederverwendbaren Code in `src/` auslagern
 4. **Dokumentation**: Erkenntnisse in README und Notebooks dokumentieren

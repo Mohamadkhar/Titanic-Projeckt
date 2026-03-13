@@ -11,12 +11,12 @@ data/
 └─ README.md     # Diese Datei
 ```
 
-## Titanic-Dataset herunterladen
+## Titanic-Dataset
 
-Du kannst das Titanic-Dataset von Kaggle herunterladen:
+Das Titanic-Dataset liegt bereits lokal im Projektordner `data/raw/` und kann direkt verwendet werden.
+
+Falls du die Originalquelle brauchst:
 - https://www.kaggle.com/c/titanic/data
-
-Oder ein Skript zum automatischen Download erstellen (siehe `src/download_data.py`).
 
 ## Datenschutz
 
