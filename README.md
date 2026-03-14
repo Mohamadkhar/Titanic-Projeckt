@@ -60,6 +60,28 @@ Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Daten
  Sie beziehen sich direkt auf vorhandene Merkmale des Datensatzes  
  Sie sind hypothesengetrieben und erfüllen die Anforderungen der Projektvorlage
 
+##  Ergebnisstand und methodische Einordnung
+
+### Aktueller Ergebnisstand (lokal verifiziert)
+
+- **H1 klar unterstuetzt**: Frauen 74.20%, Maenner 18.89%, Chi-Quadrat p = 1.20e-58
+- **H2 klar unterstuetzt**: Klasse 1 62.96%, Klasse 2 47.28%, Klasse 3 24.24%, Chi-Quadrat p = 4.55e-23
+- **H3 aktuell nicht robust belegt**: Ergebnis haengt sichtbar vom Umgang mit fehlenden Alterswerten ab
+
+### H3-Sensitivitaet gegenueber Imputation
+
+- Auf Rohdaten (nur beobachtete `Age`-Werte): Welch-t-Test p = 0.0412
+- Nach Cleaning mit globaler Median-Imputation: Welch-t-Test p = 0.0583
+- Mann-Whitney-U bleibt in beiden Faellen nicht signifikant (Rohdaten p = 0.1605, Cleaned p = 0.2697)
+
+Interpretation: Das Signal fuer H3 ist schwach und testabhaengig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
+
+### Hinweis fuer Modellierung
+
+Im bereinigten Datensatz tragen `Embarked` und `embark_town` dieselbe Information (1:1-Zuordnung C/Q/S zu Cherbourg/Queenstown/Southampton). Wenn beide one-hot-kodiert werden, entstehen redundante Features ohne Zusatzinformation.
+
+Empfehlung: Fuer spaetere ML-Modelle nur **eine** der beiden Spalten behalten.
+
 ##  Projektstruktur
 
 ```
