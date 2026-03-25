@@ -74,13 +74,13 @@ Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Daten
 - Nach Cleaning mit globaler Median-Imputation: Welch-t-Test p = 0.0583
 - Mann-Whitney-U bleibt in beiden Faellen nicht signifikant (Rohdaten p = 0.1605, Cleaned p = 0.2697)
 
-Interpretation: Das Signal fuer H3 ist schwach und testabhaengig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
+Interpretation: Das Signal für H3 ist schwach und testabhaengig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
 
-### Hinweis fuer Modellierung
+### Hinweis für Modellierung
 
 Im bereinigten Datensatz tragen `Embarked` und `embark_town` dieselbe Information (1:1-Zuordnung C/Q/S zu Cherbourg/Queenstown/Southampton). Wenn beide one-hot-kodiert werden, entstehen redundante Features ohne Zusatzinformation.
 
-Empfehlung: Fuer spaetere ML-Modelle nur **eine** der beiden Spalten behalten.
+Empfehlung: Für spaetere ML-Modelle nur **eine** der beiden Spalten behalten.
 
 ##  Projektstruktur
 
@@ -158,7 +158,7 @@ Alle Schritte oben durchführen.
 
 ### Lokale Installation (Alternative)
 
-Falls du ohne Docker arbeiten möchtest:
+Falls ohne Docker gearbeitet soll:
 
 ```bash
 # Conda-Umgebung erstellen
@@ -171,9 +171,29 @@ conda activate ds
 jupyter notebook
 ```
 
+### Reproduktionslauf ohne Notebook
+
+Die neuen Funktionen sind implementiert; die lokale Ausführung von Tests und Repro-Skript hängt von einer korrekt aktivierten Python-Umgebung mit installierten Abhängigkeiten ab.
+
+Vor dem Ausführen sicherstellen:
+
+```bash
+conda activate ds
+```
+
+```bash
+python scripts/reproduce.py
+```
+
+### Basistests ausfuehren
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
 ### In den Container zugreifen
 
-Falls du direkt im Container arbeiten möchtest:
+Falls direkt im Container gearbeitet:
 
 ```bash
 # Container Shell öffnen
@@ -193,8 +213,8 @@ python --version
 - **Matplotlib** (3.9.2): Datenvisualisierung
 - **Seaborn** (0.13.2): Statistische Visualisierungen
 - **Scikit-learn** (1.5.2): Machine Learning
-- **SciPy** (1.14.0): Wissenschaftliche Berechnungen und Hypothesentests
-- **Jupyter Notebook** (6.5.7): Interaktive Entwicklungsumgebung
+- **SciPy** (>=1.15.0): Wissenschaftliche Berechnungen und Hypothesentests
+- **Jupyter**: Interaktive Entwicklungsumgebung
 
 Vollständige Liste siehe [environment.yml](environment.yml) oder [requirements.txt](requirements.txt).
 
