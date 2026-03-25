@@ -12,10 +12,13 @@ build/
 # Jupyter Notebook
 .ipynb_checkpoints/
 *.ipynb_checkpoints
+.jupyter/
 
 # Environments
 .env
 .venv
+.venv-*/
+.venv*/
 env/
 venv/
 ENV/

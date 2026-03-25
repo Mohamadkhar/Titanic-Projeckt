@@ -7,10 +7,9 @@ Dieses Repository enthält eine vollständige Datenanalyse des Titanic-Datasets 
 Für das Abschlussprojekt wird der öffentlich zugängliche Kaggle-Datensatz **"Titanic: Machine Learning from Disaster"** verwendet [[1]](#literatur).
 
 ### Quelle und Zugriff
-Der Datensatz ist über Kaggle verfügbar und liegt als tabellarische CSV-Dateien (`train.csv`, `test.csv`) vor. Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
+Der Datensatz stammt aus der Kaggle-Competition und wird in diesem Repository als CSV-Dateien unter `data/raw/` genutzt (`titanic.csv`, `gender_submission.csv`). Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
 
 - **Kaggle Competition**: https://www.kaggle.com/competitions/titanic/data
-- **Seaborn Dataset**: https://github.com/mwaskom/seaborn-data/blob/master/titanic.csv
 
 ### Kurzbeschreibung
 Der Datensatz enthält Informationen zu Passagieren der Titanic sowie den jeweiligen Überlebensstatus als Zielvariable. Die Daten eignen sich für explorative Datenanalyse, statistische Hypothesentests sowie für überwachte Machine-Learning-Modelle zur Vorhersage des Überlebens [[1, 2]](#literatur).
@@ -54,16 +53,47 @@ Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Daten
 
 - **H3**: Vergleich von Altersgruppen mittels t-Test oder ANOVA (bzw. nichtparametrischer Alternativen) sowie Regressionsanalyse.
 
+### Methodenbegründung (warum genau diese Verfahren)
+
+- **Chi-Quadrat-Test (H1, H2):** geeignet, weil `Sex`/`Pclass` und `Survived` kategoriale Variablen sind und ich die Unabhängigkeit der Verteilungen prüfen möchte.
+- **Welch-t-Test und Mann-Whitney-U (H3):** sinnvoll für Altersvergleiche zwischen zwei Gruppen (`Survived` = 0/1), inklusive robuster Alternative bei nicht idealen Verteilungsannahmen.
+- **Logistic Regression:** interpretiertes Basismodell für binäre Zielvariablen, gut als Referenz für Titanic.
+- **Random Forest:** nichtlineares Ensemble-Modell, das Interaktionen zwischen Merkmalen besser erfassen kann.
+- **KNN:** Distanzbasiertes Vergleichsmodell; dient als zusätzliche Baseline mit anderem Modellprinzip.
+- **F1-Score als Hauptmaß:** sinnvoll bei unausgeglichenen Klassen, weil F1 Präzision und Recall gemeinsam bewertet.
+
 ### Warum diese Hypothesen geeignet sind
 
  Sie sind empirisch überprüfbar mittels statistischer Tests und Machine-Learning-Methoden  
  Sie beziehen sich direkt auf vorhandene Merkmale des Datensatzes  
  Sie sind hypothesengetrieben und erfüllen die Anforderungen der Projektvorlage
 
+##  Ergebnisstand und methodische Einordnung
+
+### Aktueller Ergebnisstand (lokal verifiziert)
+
+- **H1 klar unterstützt**: Frauen 74.20%, Männer 18.89%, Chi-Quadrat p = 1.20e-58
+- **H2 klar unterstützt**: Klasse 1 62.96%, Klasse 2 47.28%, Klasse 3 24.24%, Chi-Quadrat p = 4.55e-23
+- **H3 aktuell nicht robust belegt**: Ergebnis hängt sichtbar vom Umgang mit fehlenden Alterswerten ab
+
+### H3-Sensitivität gegenüber Imputation
+
+- Auf Rohdaten (nur beobachtete `Age`-Werte): Welch-t-Test p = 0.0412
+- Nach Cleaning mit globaler Median-Imputation: Welch-t-Test p = 0.0583
+- Mann-Whitney-U bleibt in beiden Fällen nicht signifikant (Rohdaten p = 0.1605, Cleaned p = 0.2697)
+
+Interpretation: Das Signal für H3 ist schwach und testabhängig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
+
+### Hinweis für Modellierung
+
+Im bereinigten Datensatz tragen `Embarked` und `embark_town` dieselbe Information (1:1-Zuordnung C/Q/S zu Cherbourg/Queenstown/Southampton). Wenn beide one-hot-kodiert werden, entstehen redundante Features ohne Zusatzinformation.
+
+Empfehlung: Für spätere ML-Modelle nur **eine** der beiden Spalten behalten.
+
 ##  Projektstruktur
 
 ```
-titanic-project/
+Titanic-Projeckt/
 ├── data/                    # Datensätze
 │   ├── raw/                # Original-Rohdaten
 │   ├── processed/          # Vorverarbeitete Daten
@@ -73,6 +103,7 @@ titanic-project/
 │   ├── 02-data-cleaning.ipynb
 │   ├── 03-analysis.ipynb
 │   ├── 04-visualization.ipynb
+│   ├── 05-rq3-model-comparison.ipynb
 │   └── README.md           # Notebook-Dokumentation
 ├── src/                    # Python-Quelldateien
 │   ├── __init__.py        # Package Initialisierung
@@ -96,8 +127,8 @@ Das Projekt verwendet Miniconda mit einer isolierten Conda-Umgebung (`ds` mit Py
 ### 1. Repository klonen
 
 ```bash
-git clone <repository-url>
-cd titanic-project
+git clone https://github.com/Mohamadkhar/Titanic-Projeckt.git
+cd Titanic-Projeckt
 ```
 
 ### 2. Docker Container starten
@@ -125,7 +156,7 @@ docker-compose down
 
 ### 5. Datensatz verwenden
 
-Die Datendateien liegen bereits im Projekt unter `data/raw/` und koennen direkt in den Notebooks verwendet werden.
+Die Datendateien liegen bereits im Projekt unter `data/raw/` und können direkt in den Notebooks verwendet werden.
 
 ##  Entwicklungsumgebung
 
@@ -135,7 +166,7 @@ Alle Schritte oben durchführen.
 
 ### Lokale Installation (Alternative)
 
-Falls du ohne Docker arbeiten möchtest:
+Falls ohne Docker gearbeitet wird:
 
 ```bash
 # Conda-Umgebung erstellen
@@ -148,9 +179,29 @@ conda activate ds
 jupyter notebook
 ```
 
+### Reproduktionslauf ohne Notebook
+
+Die neuen Funktionen sind implementiert; die lokale Ausführung von Tests und Repro-Skript hängt von einer korrekt aktivierten Python-Umgebung mit installierten Abhängigkeiten ab.
+
+Vor dem Ausführen sicherstellen:
+
+```bash
+conda activate ds
+```
+
+```bash
+python scripts/reproduce.py
+```
+
+### Basistests ausführen
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
 ### In den Container zugreifen
 
-Falls du direkt im Container arbeiten möchtest:
+Falls direkt im Container gearbeitet:
 
 ```bash
 # Container Shell öffnen
@@ -170,8 +221,8 @@ python --version
 - **Matplotlib** (3.9.2): Datenvisualisierung
 - **Seaborn** (0.13.2): Statistische Visualisierungen
 - **Scikit-learn** (1.5.2): Machine Learning
-- **SciPy** (1.14.0): Wissenschaftliche Berechnungen und Hypothesentests
-- **Jupyter Notebook** (6.5.7): Interaktive Entwicklungsumgebung
+- **SciPy** (1.17.1): Wissenschaftliche Berechnungen und Hypothesentests
+- **Jupyter**: Interaktive Entwicklungsumgebung
 
 Vollständige Liste siehe [environment.yml](environment.yml) oder [requirements.txt](requirements.txt).
 
@@ -189,10 +240,10 @@ Alle Änderungen werden automatisch synchronisiert (Volume-Mount).
 Das finale Projekt erfüllt folgende Kriterien:
 
 -  Als Git-Repository eingereicht → https://github.com/Mohamadkhar/Titanic-Projeckt
--  In sich geschlossen (alle benoetigten Dateien und Ausfuehrungsschritte enthalten)
+-  In sich geschlossen (alle benötigten Dateien und Ausführungsschritte enthalten)
 -  README mit Projektbeschreibung und Ausführungsanleitung
 -  Definierte Forschungsfragen (RQ1-RQ3) und Hypothesen (H1-H3)
--  Vollständige Datenanalyse mit Visualisierungen (in Arbeit)
+-  Vollständige Datenanalyse mit Visualisierungen und Modellvergleich (abgeschlossen)
 
 ##  Troubleshooting
 
