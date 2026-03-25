@@ -7,7 +7,7 @@ Dieses Repository enthält eine vollständige Datenanalyse des Titanic-Datasets 
 Für das Abschlussprojekt wird der öffentlich zugängliche Kaggle-Datensatz **"Titanic: Machine Learning from Disaster"** verwendet [[1]](#literatur).
 
 ### Quelle und Zugriff
-Der Datensatz ist über Kaggle verfügbar und liegt als tabellarische CSV-Dateien (`train.csv`, `test.csv`) vor. Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
+Der Datensatz ist über Kaggle verfügbar und wird in diesem Repository als CSV-Dateien unter `data/raw/` genutzt (`titanic.csv`, `gender_submission.csv`). Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
 
 - **Kaggle Competition**: https://www.kaggle.com/competitions/titanic/data
 - **Seaborn Dataset**: https://github.com/mwaskom/seaborn-data/blob/master/titanic.csv
@@ -54,6 +54,15 @@ Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Daten
 
 - **H3**: Vergleich von Altersgruppen mittels t-Test oder ANOVA (bzw. nichtparametrischer Alternativen) sowie Regressionsanalyse.
 
+### Methodenbegründung (warum genau diese Verfahren)
+
+- **Chi-Quadrat-Test (H1, H2):** geeignet, weil `Sex`/`Pclass` und `Survived` kategoriale Variablen sind und ich die Unabhängigkeit der Verteilungen prüfen möchte.
+- **Welch-t-Test und Mann-Whitney-U (H3):** sinnvoll für Altersvergleiche zwischen zwei Gruppen (`Survived` = 0/1), inklusive robuster Alternative bei nicht idealen Verteilungsannahmen.
+- **Logistic Regression:** interpretiertes Basismodell für binäre Zielvariablen, gut als Referenz für Titanic.
+- **Random Forest:** nichtlineares Ensemble-Modell, das Interaktionen zwischen Merkmalen besser erfassen kann.
+- **KNN:** Distanzbasiertes Vergleichsmodell; dient als zusätzliche Baseline mit anderem Modellprinzip.
+- **F1-Score als Hauptmaß:** sinnvoll bei unausgeglichenen Klassen, weil F1 Präzision und Recall gemeinsam bewertet.
+
 ### Warum diese Hypothesen geeignet sind
 
  Sie sind empirisch überprüfbar mittels statistischer Tests und Machine-Learning-Methoden  
@@ -64,28 +73,28 @@ Die folgenden Hypothesen beziehen sich direkt auf Merkmale aus dem Titanic-Daten
 
 ### Aktueller Ergebnisstand (lokal verifiziert)
 
-- **H1 klar unterstuetzt**: Frauen 74.20%, Maenner 18.89%, Chi-Quadrat p = 1.20e-58
-- **H2 klar unterstuetzt**: Klasse 1 62.96%, Klasse 2 47.28%, Klasse 3 24.24%, Chi-Quadrat p = 4.55e-23
-- **H3 aktuell nicht robust belegt**: Ergebnis haengt sichtbar vom Umgang mit fehlenden Alterswerten ab
+- **H1 klar unterstützt**: Frauen 74.20%, Männer 18.89%, Chi-Quadrat p = 1.20e-58
+- **H2 klar unterstützt**: Klasse 1 62.96%, Klasse 2 47.28%, Klasse 3 24.24%, Chi-Quadrat p = 4.55e-23
+- **H3 aktuell nicht robust belegt**: Ergebnis hängt sichtbar vom Umgang mit fehlenden Alterswerten ab
 
-### H3-Sensitivitaet gegenueber Imputation
+### H3-Sensitivität gegenüber Imputation
 
 - Auf Rohdaten (nur beobachtete `Age`-Werte): Welch-t-Test p = 0.0412
 - Nach Cleaning mit globaler Median-Imputation: Welch-t-Test p = 0.0583
-- Mann-Whitney-U bleibt in beiden Faellen nicht signifikant (Rohdaten p = 0.1605, Cleaned p = 0.2697)
+- Mann-Whitney-U bleibt in beiden Fällen nicht signifikant (Rohdaten p = 0.1605, Cleaned p = 0.2697)
 
-Interpretation: Das Signal für H3 ist schwach und testabhaengig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
+Interpretation: Das Signal für H3 ist schwach und testabhängig. Daher wird H3 in der aktuellen Form als **nicht robust belegt** berichtet.
 
 ### Hinweis für Modellierung
 
 Im bereinigten Datensatz tragen `Embarked` und `embark_town` dieselbe Information (1:1-Zuordnung C/Q/S zu Cherbourg/Queenstown/Southampton). Wenn beide one-hot-kodiert werden, entstehen redundante Features ohne Zusatzinformation.
 
-Empfehlung: Für spaetere ML-Modelle nur **eine** der beiden Spalten behalten.
+Empfehlung: Für spätere ML-Modelle nur **eine** der beiden Spalten behalten.
 
 ##  Projektstruktur
 
 ```
-titanic-project/
+Titanic-Projeckt/
 ├── data/                    # Datensätze
 │   ├── raw/                # Original-Rohdaten
 │   ├── processed/          # Vorverarbeitete Daten
@@ -119,8 +128,8 @@ Das Projekt verwendet Miniconda mit einer isolierten Conda-Umgebung (`ds` mit Py
 ### 1. Repository klonen
 
 ```bash
-git clone <repository-url>
-cd titanic-project
+git clone https://github.com/Mohamadkhar/Titanic-Projeckt.git
+cd Titanic-Projeckt
 ```
 
 ### 2. Docker Container starten
@@ -148,7 +157,7 @@ docker-compose down
 
 ### 5. Datensatz verwenden
 
-Die Datendateien liegen bereits im Projekt unter `data/raw/` und koennen direkt in den Notebooks verwendet werden.
+Die Datendateien liegen bereits im Projekt unter `data/raw/` und können direkt in den Notebooks verwendet werden.
 
 ##  Entwicklungsumgebung
 
@@ -158,7 +167,7 @@ Alle Schritte oben durchführen.
 
 ### Lokale Installation (Alternative)
 
-Falls ohne Docker gearbeitet soll:
+Falls ohne Docker gearbeitet wird:
 
 ```bash
 # Conda-Umgebung erstellen
@@ -185,7 +194,7 @@ conda activate ds
 python scripts/reproduce.py
 ```
 
-### Basistests ausfuehren
+### Basistests ausführen
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py"
@@ -213,7 +222,7 @@ python --version
 - **Matplotlib** (3.9.2): Datenvisualisierung
 - **Seaborn** (0.13.2): Statistische Visualisierungen
 - **Scikit-learn** (1.5.2): Machine Learning
-- **SciPy** (>=1.15.0): Wissenschaftliche Berechnungen und Hypothesentests
+- **SciPy** (1.17.1): Wissenschaftliche Berechnungen und Hypothesentests
 - **Jupyter**: Interaktive Entwicklungsumgebung
 
 Vollständige Liste siehe [environment.yml](environment.yml) oder [requirements.txt](requirements.txt).
@@ -232,7 +241,7 @@ Alle Änderungen werden automatisch synchronisiert (Volume-Mount).
 Das finale Projekt erfüllt folgende Kriterien:
 
 -  Als Git-Repository eingereicht → https://github.com/Mohamadkhar/Titanic-Projeckt
--  In sich geschlossen (alle benoetigten Dateien und Ausfuehrungsschritte enthalten)
+-  In sich geschlossen (alle benötigten Dateien und Ausführungsschritte enthalten)
 -  README mit Projektbeschreibung und Ausführungsanleitung
 -  Definierte Forschungsfragen (RQ1-RQ3) und Hypothesen (H1-H3)
 -  Vollständige Datenanalyse mit Visualisierungen und Modellvergleich (abgeschlossen)

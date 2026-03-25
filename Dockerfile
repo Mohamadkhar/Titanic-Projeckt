@@ -23,4 +23,4 @@ RUN mkdir -p /workspace/data /workspace/notebooks /workspace/src
 EXPOSE 8888
 
 # Conda-Umgebung aktivieren und Jupyter Notebook starten
-CMD ["conda", "run", "--no-capture-output", "-n", "ds", "jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["conda", "run", "--no-capture-output", "-n", "ds", "jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=", "--NotebookApp.password="]
