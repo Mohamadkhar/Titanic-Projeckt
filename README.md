@@ -95,6 +95,7 @@ titanic-project/
 │   ├── 02-data-cleaning.ipynb
 │   ├── 03-analysis.ipynb
 │   ├── 04-visualization.ipynb
+│   ├── 05-rq3-model-comparison.ipynb
 │   └── README.md           # Notebook-Dokumentation
 ├── src/                    # Python-Quelldateien
 │   ├── __init__.py        # Package Initialisierung

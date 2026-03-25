@@ -10,6 +10,7 @@ Die Notebooks sollten in folgender Reihenfolge durchgeführt werden:
 2. **02-data-cleaning.ipynb** - Datenbereinigung und Preprocessing
 3. **03-analysis.ipynb** - Statistische Analysen und Hypothesentests
 4. **04-visualization.ipynb** - Erweiterte Visualisierungen und Ergebnisse
+5. **05-rq3-model-comparison.ipynb** - Modellvergleich: Logistic Regression, Random Forest, KNN
 
 ## Weitere Lab-Notebooks
 
