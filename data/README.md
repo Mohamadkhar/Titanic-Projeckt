@@ -16,7 +16,7 @@ data/
 Das Titanic-Dataset liegt bereits lokal im Projektordner `data/raw/` und kann direkt verwendet werden.
 
 Falls du die Originalquelle brauchst:
-- https://www.kaggle.com/c/titanic/data
+- https://www.kaggle.com/competitions/titanic/data
 
 ## Datenschutz
 

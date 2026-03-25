@@ -7,10 +7,9 @@ Dieses Repository enthält eine vollständige Datenanalyse des Titanic-Datasets 
 Für das Abschlussprojekt wird der öffentlich zugängliche Kaggle-Datensatz **"Titanic: Machine Learning from Disaster"** verwendet [[1]](#literatur).
 
 ### Quelle und Zugriff
-Der Datensatz ist über Kaggle verfügbar und wird in diesem Repository als CSV-Dateien unter `data/raw/` genutzt (`titanic.csv`, `gender_submission.csv`). Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
+Der Datensatz stammt aus der Kaggle-Competition und wird in diesem Repository als CSV-Dateien unter `data/raw/` genutzt (`titanic.csv`, `gender_submission.csv`). Er wird häufig als Referenzdatensatz für Klassifikationsaufgaben im maschinellen Lernen verwendet.
 
 - **Kaggle Competition**: https://www.kaggle.com/competitions/titanic/data
-- **Seaborn Dataset**: https://github.com/mwaskom/seaborn-data/blob/master/titanic.csv
 
 ### Kurzbeschreibung
 Der Datensatz enthält Informationen zu Passagieren der Titanic sowie den jeweiligen Überlebensstatus als Zielvariable. Die Daten eignen sich für explorative Datenanalyse, statistische Hypothesentests sowie für überwachte Machine-Learning-Modelle zur Vorhersage des Überlebens [[1, 2]](#literatur).
