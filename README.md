@@ -215,7 +215,7 @@ Das finale Projekt erfüllt folgende Kriterien:
 -  In sich geschlossen (alle benoetigten Dateien und Ausfuehrungsschritte enthalten)
 -  README mit Projektbeschreibung und Ausführungsanleitung
 -  Definierte Forschungsfragen (RQ1-RQ3) und Hypothesen (H1-H3)
--  Vollständige Datenanalyse mit Visualisierungen (in Arbeit)
+-  Vollständige Datenanalyse mit Visualisierungen und Modellvergleich (abgeschlossen)
 
 ##  Troubleshooting
 
